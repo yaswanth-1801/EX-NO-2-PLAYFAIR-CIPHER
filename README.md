@@ -113,5 +113,5 @@ int main()
 Output:
 <img width="1355" height="757" alt="image" src="https://github.com/user-attachments/assets/29e8d0a1-dd04-4634-a05d-b57194ea7fc3" />
 
-Result:
+##Result:
 Thus, The above Playfair cipher program is executed successfully.
