@@ -3,10 +3,6 @@
  
 
 ## AIM:
- 
-
- 
-
 To write a C program to implement the Playfair Substitution technique.
 
 ## DESCRIPTION:
@@ -35,9 +31,85 @@ STEP-5: Display the obtained cipher text.
 
 
 Program:
+```
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
 
+char m[5][5];
 
+int main()
+{
+    char key[100], text[100];
+    int used[26] = {0}, i, j, k = 0;
+    int r1, c1, r2, c2;
+
+    printf("Enter key: ");
+    scanf("%99s", key);
+
+    printf("Enter plaintext: ");
+    scanf("%99s", text);
+
+    used[9] = 1;
+
+    for (i = 0; key[i]; i++)
+    {
+        char ch = toupper(key[i]);
+        if (ch == 'J') ch = 'I';
+
+        if (ch >= 'A' && ch <= 'Z' && !used[ch - 'A'])
+        {
+            m[k / 5][k % 5] = ch;
+            used[ch - 'A'] = 1;
+            k++;
+        }
+    }
+
+    for (i = 0; i < 26; i++)
+        if (!used[i])
+        {
+            m[k / 5][k % 5] = 'A' + i;
+            k++;
+        }
+
+    for (i = 0; text[i]; i++)
+    {
+        text[i] = toupper(text[i]);
+        if (text[i] == 'J') text[i] = 'I';
+    }
+
+    for (i = 0; text[i]; i += 2)
+    {
+        if (!text[i + 1]) text[i + 1] = 'X', text[i + 2] = '\0';
+        if (text[i] == text[i + 1])
+            text[i + 1] = 'X';
+
+        for (j = 0; j < 25; j++)
+        {
+            if (m[j / 5][j % 5] == text[i])
+                r1 = j / 5, c1 = j % 5;
+            if (m[j / 5][j % 5] == text[i + 1])
+                r2 = j / 5, c2 = j % 5;
+        }
+
+        if (r1 == r2)
+            text[i] = m[r1][(c1 + 1) % 5],
+            text[i + 1] = m[r2][(c2 + 1) % 5];
+        else if (c1 == c2)
+            text[i] = m[(r1 + 1) % 5][c1],
+            text[i + 1] = m[(r2 + 1) % 5][c2];
+        else
+            text[i] = m[r1][c2],
+            text[i + 1] = m[r2][c1];
+    }
+
+    printf("Encrypted text: %s\n", text);
+    return 0;
+}
+```
 
 
 
 Output:
+<img width="1355" height="757" alt="image" src="https://github.com/user-attachments/assets/29e8d0a1-dd04-4634-a05d-b57194ea7fc3" />
+
